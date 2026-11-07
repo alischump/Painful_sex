@@ -1,6 +1,6 @@
-# Carousel storyboard: "The Lube Edit" (6 slides)
+# Carousel storyboard: "The Lube Edit" (cover + 6 slides)
 
-**Status: storyboard for approval. Final PNG + MP4 export has not been run yet.**
+**Status: approved. Exported as PNG stills, 00_cover + 01–06 (`output/`).**
 
 - **Format:** 6 slides at 1080×1350 (4:5). Each slide exports as an MP4 (7 s loop, 30 fps) plus a still PNG.
 - **Content source:** Notion page "Types of lube", in the same order and wording, lightly shortened for the slides.
@@ -40,6 +40,7 @@ Arch tints are muted, clean-girl versions of each product's own color: mist blue
 
 | # | Frames: 0.4 s → 1.3 s → final | Copy | Product | Animation |
 |---|---|---|---|---|
+| 0 (cover) | ![](storyboard/00_cover_c_final.jpg) | *different* / *types of* / **lube** (yellow highlighter) · script subhead "from a pelvic floor therapist" · ALI · PELVIC HEALTH OT tag · "6 TYPES INSIDE" sticker | Ali cut-out pointing up so her fingertip touches "lube"; Überlube, Maude Shine and Slippery Stuff scattered flat-lay | Scroll-stopper. The "6 types" sticker moved here from slide 1 |
 | 1 | ![](storyboard/01_water_a_0.4s.jpg) ![](storyboard/01_water_b_1.3s.jpg) ![](storyboard/01_water_c_final.jpg) | *the everyday staple* · **water** *-based*. Love: versatile + washes off · latex/dam/most-toy safe · good for sensitive skin · thin to thick. Watch: may dry out · very hyperosmolar formulas can irritate | Slippery Stuff Gel | **Cover: fully visible on frame 1** (it's the feed thumbnail). Ambient float, sparkles, rocking sticker, arrow nudge |
 | 2 | ![](storyboard/02_silicone_a_0.4s.jpg) ![](storyboard/02_silicone_b_1.3s.jpg) ![](storyboard/02_silicone_c_final.jpg) | *the long-lasting one* · **silicone** *-based*. Love: long-lasting + slippery · longer sex, anal, shower, dryness · latex + dam compatible · won't dry. Watch: stains fabric · can make silicone toys sticky | Überlube | Arch rises 0–0.6 s, word fades up, product drops in 0.35–1.05 s, highlighter wipes at 0.8 s, bullets stagger from 1.05 s, brand pill at 1.4 s, SWIPE at 1.8 s, then float loop |
 | 3 | ![](storyboard/03_oil_a_0.4s.jpg) ![](storyboard/03_oil_b_1.3s.jpg) ![](storyboard/03_oil_c_final.jpg) | *the moisturizer* · **oil** *-based*. Love: long-lasting + moisturizing · external massage / no latex · inexpensive. Watch: weakens latex · hard to remove from fabric · not ideal internally if prone to infections | Coconu | Same build-in as slide 2 |

@@ -21,3 +21,15 @@
 Animation (MP4 mode, 7 s at 30 fps):
 - Timing: arch rises 0–0.6 s; hero word 0.12 s; product drops 0.35–1.05 s; highlighter wipe 0.8 s; list stagger from 1.05 s; brand pill 1.4 s; footer 1.8 s; tip 2.2 s.
 - Loop: product floats 7 px over 3.5 s, sparkles twinkle every 2.2 s, the arrow nudges every 1.6 s, and the cover sticker rocks ±3°.
+
+## Cover (00_cover)
+| Element | Spec |
+|---|---|
+| Title stack | x62 from y140. serif 240 / italic 170 / hero 380 (`title_sizes` overrides). Baseline steps of 0.75 / 0.88 / 0.77 × that line's size. Yellow bar behind the hero word from baseline−0.20×size to baseline+0.035×size |
+| Person | transparent cut-out, `person_height` px tall, fingertip at the hero word's baseline+4, soft olive cast shadow, 4 px float |
+| Arch | 420×640, centred behind the person, bleeding off the bottom |
+| Subtitle | Mrs Saint Delafield 88, wrapped to the column left of the person, from hero baseline+70 |
+| Tag | yellow pill, Inter 19 tracked, under the subtitle |
+| Sticker | yellow disc at `sticker_xy`, rocking −12° ±3° |
+| Sparkles | 3 olive 4-point stars in the clear space right of the hero word |
+| Footer | SWIPE pill bottom right only (no PELVIC HEALTH label) |

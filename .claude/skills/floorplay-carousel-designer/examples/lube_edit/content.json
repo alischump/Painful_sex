@@ -141,5 +141,67 @@
       ],
       "tip": "pelvic-floor friendly pick: fragrance-free, flavor-free, non-warming, non-cooling, short ingredient list"
     }
-  ]
+  ],
+  "cover": {
+    "title": [
+      [
+        "different",
+        "serif"
+      ],
+      [
+        "types of",
+        "italic"
+      ],
+      [
+        "lube",
+        "hero"
+      ]
+    ],
+    "subtitle": "from a pelvic floor therapist",
+    "person": "ali_pointing.png",
+    "fingertip": [
+      103,
+      0
+    ],
+    "person_height": 960,
+    "point_at": 0.8,
+    "tag": "ALI  ·  PELVIC HEALTH OT",
+    "sticker": [
+      "6",
+      "TYPES INSIDE"
+    ],
+    "scatter": [
+      [
+        "uberlube",
+        330,
+        10,
+        830,
+        440
+      ],
+      [
+        "maude",
+        300,
+        -9,
+        850,
+        890
+      ],
+      [
+        "slippery",
+        230,
+        72,
+        40,
+        1150
+      ]
+    ],
+    "tint": [
+      238,
+      227,
+      212
+    ],
+    "subtitle_size": 88,
+    "sticker_xy": [
+      640,
+      395
+    ]
+  }
 }

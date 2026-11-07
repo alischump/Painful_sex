@@ -37,6 +37,7 @@ SANS, SANS_B = "Inter-Medium.otf", "Inter-SemiBold.otf"
 # ---- Content (from Notion "Types of lube", tightened for slides) ------------------------------
 SLIDES = []          # filled from --content JSON (see examples/lube_edit/content.json)
 SERIES = "THE LUBE EDIT"
+COVER = None
 STICKER = None       # e.g. ["6", "TYPES OF LUBE"] for the cover; None to skip
 PRODUCTS = "."
 
@@ -151,7 +152,7 @@ class Slide:
     def __init__(self, idx, spec):
         self.i, self.s = idx, spec
         self.n = len(SLIDES)
-        self.cover = idx == 0
+        self.cover = idx == 0 and not COVER   # with a cover page, slide 1 builds in like the rest
         g = grain(seed=idx + 1)
         base = np.empty((H, W, 3), np.float32); base[:] = PAPER
         self.bg = Image.fromarray(np.clip(base + g, 0, 255).astype(np.uint8)).convert("RGBA")
@@ -197,7 +198,7 @@ class Slide:
         self.kicker = text_img(spec["kicker"], F(SCRIPT, 66))
         self.brand = pill(f"PICTURED: {spec['brand'].upper()}", 17, arrow=False, fill=CREAM)
         self.swipe = pill("SWIPE", 22) if idx < self.n - 1 else pill("SAVE THIS", 22, arrow=False, fill=YELLOW)
-        self.sticker = sticker(*STICKER) if (self.cover and STICKER) else None
+        self.sticker = sticker(*STICKER) if (self.cover and STICKER and not COVER) else None
         self.blocks = self._column()
         self.stars = [(self.ax0 + 70, self.ay0 + 170, 18, 0.0), (self.ax1 - 80, self.ay0 + 260, 12, 0.9),
                       (self.ax0 + 110, self.ay0 + 420, 10, 1.7), (self.ax1 - 120, self.ay0 + 120, 9, 2.4)]
@@ -308,35 +309,162 @@ class Slide:
             paste(im, st, self.ax1 - st.width + 40, self.ay0 - 70)
         return im.convert("RGB")
 
+
+# ---- cover (optional "cover" block in content JSON) ----------------------------------------------
+COVER = None
+
+def person_layers(path, height):
+    p = Image.open(path).convert("RGBA")
+    s = height / p.height
+    p = p.resize((int(p.width * s), int(p.height * s)), Image.LANCZOS)
+    a = p.getchannel("A")
+    sh = Image.new("RGBA", (p.width + 140, p.height + 140), (0, 0, 0, 0))
+    blk = Image.new("RGBA", p.size, OLIVE + (0,)); blk.putalpha(a.point(lambda v: int(v * 0.28)))
+    sh.alpha_composite(blk, (70 + 26, 70 + 18))
+    return p, sh.filter(ImageFilter.GaussianBlur(24)), s
+
+class Cover:
+    """Scroll-stopping cover: huge lowercase title stack, the creator cut-out pointing UP at the
+    last title word (fingertip touching its highlighter), script subheading, name tag, cover
+    sticker and a few mini product cut-outs scattered flat-lay style."""
+    cover = True
+
+    def __init__(self, spec):
+        self.s = spec
+        g = grain(seed=99)
+        base = np.empty((H, W, 3), np.float32); base[:] = PAPER
+        self.bg = Image.fromarray(np.clip(base + g, 0, 255).astype(np.uint8)).convert("RGBA")
+        self.label = text_img(SERIES, F(SANS, 22), track=3.2)
+        self.handle = text_img(HANDLE, F(SANS, 22), track=1.0)
+        # title stack: [(text, style)] style = serif | italic | hero
+        sizes = {"serif": 240, "italic": 170, "hero": 380}
+        sizes.update(spec.get("title_sizes", {}))
+        step = {"serif": 0.75, "italic": 0.88, "hero": 0.77}   # baseline step = factor x this line's size
+        fonts = {"serif": SERIF, "italic": SERIF_I, "hero": SERIF}
+        y, self.lines = 140, []
+        prev_base = None
+        for text, style in spec["title"]:
+            f = F(fonts[style], sizes[style])
+            im = text_img(text, f)
+            asc = f.getmetrics()[0]
+            if prev_base is None:
+                base_y = y + asc
+            else:
+                base_y = prev_base + int(step[style] * sizes[style])
+            self.lines.append((im, 62, base_y - asc - 2, style, base_y, f))
+            prev_base = base_y
+        hero = [l for l in self.lines if l[3] == "hero"][-1]
+        self.hero = hero
+        # person: fingertip lands just under the hero word, ~70% along it
+        self.person, self.person_sh, sc = person_layers(os.path.join(PRODUCTS, spec["person"]), spec.get("person_height", 1010))
+        fx, fy = spec.get("fingertip", [0, 0])
+        hx = hero[1] + hero[0].width * spec.get("point_at", 0.72)
+        self.tip = (hx, hero[4] + 4)
+        self.pxy = (hx - fx * sc, hero[4] + 4 - fy * sc)
+        # arch behind the person
+        aw, ah = 420, 640
+        self.arch_xy = (int(self.pxy[0] + self.person.width / 2 - aw / 2), H - ah + 40)
+        arch = Image.new("RGBA", (aw, ah), (0, 0, 0, 0))
+        d = ImageDraw.Draw(arch)
+        tint = tuple(spec.get("tint", [238, 227, 212]))
+        d.rounded_rectangle([0, 0, aw - 1, ah - 1], radius=aw // 2, fill=tint + (255,))
+        d.rectangle([0, ah // 2, aw - 1, ah - 1], fill=tint + (255,))
+        self.arch = arch
+        # subheading in script, wrapped to the free column left of the person
+        colw = int(self.pxy[0] - 72 - 30)
+        sf = F(SCRIPT, spec.get("subtitle_size", 96))
+        self.sub_lines = wrap(spec["subtitle"], sf, colw)
+        self.sub_font = sf
+        self.sub_y = hero[4] + 70
+        self.tag = pill(spec.get("tag", "PELVIC HEALTH OT"), 19, arrow=False, fill=YELLOW, outline=YELLOW)
+        self.swipe = pill(spec.get("swipe", "SWIPE"), 22)
+        self.sticker = sticker(*spec["sticker"]) if spec.get("sticker") else None
+        self.scatter = []
+        for name, h, rot, x, y in spec.get("scatter", []):
+            pimg, psh = product_layers(name, 1000, h)
+            self.scatter.append((pimg.rotate(rot, resample=Image.BICUBIC, expand=True),
+                                 psh.rotate(rot, resample=Image.BICUBIC, expand=True), x, y))
+
+    def frame(self, t):
+        im = self.bg.copy()
+        paste(im, self.label, 72, 64)
+        d = ImageDraw.Draw(im)
+        d.line([72, 108, 72 + self.label.width, 108], fill=OLIVE + (255,), width=2)
+        paste(im, self.handle, W - 72 - self.handle.width, 64)
+        paste(im, self.arch, *self.arch_xy)
+        # scattered mini products (behind the person)
+        for pimg, psh, x, y in self.scatter:
+            paste(im, psh, x - 60, y - 60)
+            paste(im, pimg, x, y)
+        # title; highlighter behind the hero word
+        for img, x, y, style, base_y, f in self.lines:
+            if style == "hero":
+                d = ImageDraw.Draw(im)
+                d.rectangle([x + 4, base_y - f.size * 0.20, x + img.width - 4, base_y + f.size * 0.035], fill=YELLOW + (255,))
+            paste(im, img, x, y)
+        # subheading + tag
+        y = self.sub_y
+        for ln in self.sub_lines:
+            li = text_img(ln, self.sub_font)
+            paste(im, li, 66, y); y += int(self.sub_font.size * 0.92)
+        paste(im, self.tag, 76, y + 26)
+        # person (front), gentle bob
+        bob = 4 * math.sin(2 * math.pi * t / 3.5)
+        px, py = self.pxy
+        paste(im, self.person_sh, px - 70, py - 70 + bob)
+        paste(im, self.person, px, py + bob)
+        # "pop" lines + sparkles at the fingertip
+        hx1 = self.hero[1] + self.hero[0].width          # sparkles in the clear space right of the hero word
+        hb = self.hero[4]
+        for sx, sy, sz, ph in [(hx1 + 34, hb - 250, 18, 0), (hx1 + 70, hb - 120, 11, 1.3), (hx1 + 18, hb - 40, 9, 2.2)]:
+            tw = 0.5 + 0.5 * math.sin(2 * math.pi * t / 2.2 + ph * 2)
+            paste(im, star(sz, OLIVE), sx - sz, sy - sz, 0.35 + 0.65 * tw)
+        if self.sticker is not None:
+            rot = -12 + 3 * math.sin(2 * math.pi * t / 4)
+            st = self.sticker.rotate(rot, resample=Image.BICUBIC, expand=True)
+            sxy = self.s.get("sticker_xy", [W - 72 - st.width + 20, self.tip[1] + 110])
+            sxy = [sxy[0] - (st.width - self.sticker.width) // 2, sxy[1] - (st.height - self.sticker.height) // 2]
+            paste(im, st, sxy[0], sxy[1])
+        paste(im, self.swipe, W - 72 - self.swipe.width + 6 * max(0, math.sin(2 * math.pi * t / 1.6)), 1238)
+        return im.convert("RGB")
+
+def items():
+    out = []
+    if COVER:
+        out.append(("00_cover", lambda: Cover(COVER)))
+    for i, spec in enumerate(SLIDES):
+        out.append((f"{i + 1:02d}_{spec['key']}", (lambda i=i, spec=spec: Slide(i, spec))))
+    return out
+
 # ---- outputs -------------------------------------------------------------------------------------------
 def storyboard(out):
     os.makedirs(out, exist_ok=True)
     sheet_rows = []
-    for i, spec in enumerate(SLIDES):
-        sl = Slide(i, spec)
+    for name, make in items():
+        sl = make()
         frames = []
         for tag, t in [("a_0.4s", 0.4), ("b_1.3s", 1.3), ("c_final", DUR - 0.01)]:
             fr = sl.frame(t)
-            fr.save(os.path.join(out, f"{i + 1:02d}_{spec['key']}_{tag}.jpg"), quality=90)
+            fr.save(os.path.join(out, f"{name}_{tag}.jpg"), quality=90)
             frames.append(fr)
         sheet_rows.append(frames)
-        print("storyboard", i + 1, spec["key"], "column ends at y", sl.col_bottom)
+        print("storyboard", name, "column ends at y", getattr(sl, "col_bottom", "-"))
     tw, th = 360, 450
-    sheet = Image.new("RGB", (tw * 3 + 40, th * len(SLIDES) + 10 * (len(SLIDES) - 1)), (255, 255, 255))
+    n = len(sheet_rows)
+    sheet = Image.new("RGB", (tw * 3 + 40, th * n + 10 * (n - 1)), (255, 255, 255))
     for r, frames in enumerate(sheet_rows):
         for c, fr in enumerate(frames):
             sheet.paste(fr.resize((tw, th), Image.LANCZOS), (c * (tw + 20), r * (th + 10)))
     sheet.save(os.path.join(out, "contact_sheet.jpg"), quality=88)
-    finals = Image.new("RGB", (tw * 6 + 50, th), (255, 255, 255))
+    finals = Image.new("RGB", (tw * n + 10 * (n - 1), th), (255, 255, 255))
     for c, frames in enumerate(sheet_rows):
         finals.paste(frames[2].resize((tw, th), Image.LANCZOS), (c * (tw + 10), 0))
     finals.save(os.path.join(out, "finals_strip.jpg"), quality=88)
 
 def export(out, video=True):
     os.makedirs(out, exist_ok=True)
-    for i, spec in enumerate(SLIDES):
-        sl = Slide(i, spec)
-        name = f"{i + 1:02d}_{spec['key']}"
+    for name, make in items():
+        sl = make()
         sl.frame(DUR - 0.01).save(os.path.join(out, name + ".png"))
         if not video:
             print("exported", name + ".png"); continue
@@ -363,6 +491,7 @@ if __name__ == "__main__":
         sl["tint"] = tuple(sl["tint"])
     SERIES = cfg.get("series", SERIES)
     STICKER = cfg.get("sticker")
+    COVER = cfg.get("cover")
     PRODUCTS = os.path.join(base, cfg.get("products_dir", "products"))
     if a.storyboard: storyboard(a.storyboard)
     if a.export: export(a.export, video=not a.stills_only)

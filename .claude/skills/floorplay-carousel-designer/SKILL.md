@@ -17,6 +17,17 @@ Creator: **Ali** (A-L-I), pelvic health OT, **@floorplayunfiltered**. The approv
   - `suffix`: italic, highlighted
   - `kicker`: script line, 25 characters or fewer
 - A general rule of thumb goes in the last slide's `tip` (`"head: body"`). It replaces the PELVIC HEALTH footer and the last slide gets a yellow SAVE THIS button.
+- **Cover page (recommended, scroll-stopper):** add a `cover` block. It renders as `00_cover`, ahead of the numbered slides (which stay 01/N), and moves the sticker onto the cover:
+  ```json
+  "cover": {"title": [["different","serif"],["types of","italic"],["lube","hero"]],
+            "subtitle": "from a pelvic floor therapist", "tag": "ALI  ·  PELVIC HEALTH OT",
+            "person": "ali_pointing.png", "fingertip": [103, 0], "person_height": 960, "point_at": 0.80,
+            "sticker": ["6","TYPES INSIDE"], "sticker_xy": [640, 395],
+            "scatter": [["uberlube",330,10,830,440],["maude",300,-9,850,890],["slippery",230,72,40,1150]]}
+  ```
+  - `person` is a transparent cut-out of Ali. `fingertip` is the pixel of her pointing fingertip in that image. The renderer places her so the fingertip touches the underside of the **hero** word's highlighter, `point_at` of the way along it.
+  - Use `scatter` for mini product cut-outs `[name, height, rotation°, x, y]`, flat-lay style, placed in the empty space (right of the title, bottom corners). Keep them clear of the subtitle, the tag and the SWIPE pill.
+  - The title, sticker and products should fill the frame evenly with no big empty corner. Check that sparkles and lines never sit on letters.
 - Write `content.json` (copy `examples/lube_edit/content.json`):
   - top level: `series` (tracked label, e.g. "THE LUBE EDIT"), `sticker` (cover badge `["6", "TYPES OF LUBE"]` or `null`), `products_dir`
   - per slide: `key`, `word`, `suffix`, `kicker`, `tint` [r, g, b], `product` (png name), `brand` (pill text), `love[]`, `watch[]`, optional `tip`

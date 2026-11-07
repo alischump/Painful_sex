@@ -1,0 +1,207 @@
+{
+  "series": "THE LUBE EDIT",
+  "sticker": [
+    "6",
+    "TYPES OF LUBE"
+  ],
+  "products_dir": "products_cut",
+  "slides": [
+    {
+      "key": "water",
+      "word": "water",
+      "suffix": "-based",
+      "kicker": "the everyday staple",
+      "tint": [
+        219,
+        229,
+        231
+      ],
+      "product": "slippery",
+      "brand": "Slippery Stuff Gel",
+      "love": [
+        "Versatile and easy to wash off",
+        "Works with latex condoms, dental dams and most toys",
+        "A good first pick for sensitive skin",
+        "Comes in thin to thicker formulas"
+      ],
+      "watch": [
+        "May dry out, so reapply as needed",
+        "Very hyperosmolar formulas can irritate vaginal or rectal tissue"
+      ]
+    },
+    {
+      "key": "silicone",
+      "word": "silicone",
+      "suffix": "-based",
+      "kicker": "the long-lasting one",
+      "tint": [
+        228,
+        226,
+        222
+      ],
+      "product": "uberlube",
+      "brand": "Überlube",
+      "love": [
+        "Long-lasting and super slippery",
+        "Great for longer sex, anal, shower sex or significant dryness",
+        "Latex condom + dental dam compatible",
+        "Won't evaporate or dry quickly"
+      ],
+      "watch": [
+        "Can stain fabric and is harder to wash off",
+        "May make some silicone toys sticky; use water-based with silicone toys"
+      ]
+    },
+    {
+      "key": "oil",
+      "word": "oil",
+      "suffix": "-based",
+      "kicker": "the moisturizer",
+      "tint": [
+        236,
+        226,
+        210
+      ],
+      "product": "coconu",
+      "brand": "Coconu",
+      "love": [
+        "Very long-lasting and moisturizing",
+        "Great for external massage or sex without latex barriers",
+        "Often inexpensive and easy to find"
+      ],
+      "watch": [
+        "Weakens latex condoms + dental dams (breakage risk)",
+        "Hard to remove from fabric",
+        "Not ideal internally if you get recurrent infections"
+      ]
+    },
+    {
+      "key": "aloe",
+      "word": "aloe",
+      "suffix": "-based",
+      "kicker": "the gentle one",
+      "tint": [
+        222,
+        227,
+        211
+      ],
+      "product": "maude",
+      "brand": "Maude Shine",
+      "love": [
+        "Moisturizing and typically non-irritating",
+        "Usually water-based + condom-compatible (check the formula)"
+      ],
+      "watch": [
+        "Some contain alcohol, fragrance, glycerin or other irritants",
+        "May dry faster than silicone lubricants"
+      ]
+    },
+    {
+      "key": "fertility",
+      "word": "fertility",
+      "suffix": "-friendly",
+      "kicker": "for trying to conceive",
+      "tint": [
+        225,
+        226,
+        236
+      ],
+      "product": "preseed",
+      "brand": "Pre-Seed",
+      "love": [
+        "Formulated to be gentler on sperm movement + survival",
+        "Helpful when trying to conceive and you need lubrication",
+        "Some are designed to resemble fertile cervical mucus"
+      ],
+      "watch": [
+        "“Natural,” “organic” or aloe ≠ fertility-friendly",
+        "Choose one labeled + tested for use while trying to conceive"
+      ]
+    },
+    {
+      "key": "cbd",
+      "word": "cbd",
+      "suffix": "-infused",
+      "kicker": "the wellness add-on",
+      "tint": [
+        241,
+        222,
+        215
+      ],
+      "product": "foria",
+      "brand": "Foria Awaken Arousal Oil",
+      "love": [
+        "Some report more relaxation, sensation or less discomfort",
+        "An option for external massage or sexual wellness"
+      ],
+      "watch": [
+        "Formulas vary: some are oil-based or add fragrance, warming agents or botanicals",
+        "Won't treat vaginismus, pelvic-floor dysfunction or chronic pain",
+        "Pregnant, breastfeeding, TTC or on meds? Ask your clinician first"
+      ],
+      "tip": "pelvic-floor friendly pick: fragrance-free, flavor-free, non-warming, non-cooling, short ingredient list"
+    }
+  ],
+  "cover": {
+    "title": [
+      [
+        "different",
+        "serif"
+      ],
+      [
+        "types of",
+        "italic"
+      ],
+      [
+        "lube",
+        "hero"
+      ]
+    ],
+    "subtitle": "from a pelvic floor therapist",
+    "person": "ali_pointing.png",
+    "fingertip": [
+      103,
+      0
+    ],
+    "person_height": 960,
+    "point_at": 0.8,
+    "tag": "ALI  ·  PELVIC HEALTH OT",
+    "sticker": [
+      "6",
+      "TYPES INSIDE"
+    ],
+    "scatter": [
+      [
+        "uberlube",
+        330,
+        10,
+        830,
+        440
+      ],
+      [
+        "maude",
+        300,
+        -9,
+        850,
+        890
+      ],
+      [
+        "slippery",
+        230,
+        72,
+        40,
+        1150
+      ]
+    ],
+    "tint": [
+      238,
+      227,
+      212
+    ],
+    "subtitle_size": 88,
+    "sticker_xy": [
+      640,
+      395
+    ]
+  }
+}
