@@ -43,7 +43,7 @@ FACE = (0.44, 0.44)  # face centre in the source frame, as fractions
 SEGMENTS = [
     (1.30, 5.42, 1.00, "hook: almost half... never tell their partner"),
     (5.48, 6.80, 1.28, "punch-in: let that sink in"),
-    (7.18, 9.92, 1.08, "intro: my name is Allie"),
+    (7.18, 9.92, 1.08, "intro: my name is Ali"),
     (10.30, 11.70, 1.00, "let's get into it"),
     (14.92, 21.86, 1.00, "study + 51% (second, clean take)"),
     (22.18, 26.22, 1.00, "little or no pleasure"),
@@ -332,7 +332,7 @@ def build_overlays():
         ImageDraw.Draw(bg).rounded_rectangle([0, 0, 759, 419], radius=40, fill=CREAM + (236,))
         card = Image.alpha_composite(card, bg)
         card.alpha_composite(rule_label("PELVIC HEALTH"), (56, 40))
-        name = rich_block([([("ALLIE", F(S, 190), OLIVE)], 170)], bg=None, pad=(0, 0), align="left")
+        name = rich_block([([("ALI", F(S, 190), OLIVE)], 170)], bg=None, pad=(0, 0), align="left")
         card.alpha_composite(name, (52, 92))
         role = rich_block([([("occupational therapist", F(SC, 92), OLIVE)], 100)], bg=None, pad=(0, 0), align="left")
         card.alpha_composite(role, (60, 280))

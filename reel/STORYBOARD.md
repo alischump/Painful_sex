@@ -1,6 +1,6 @@
 # Reel Storyboard: "Why half of women with painful sex stay silent"
 
-**Creator:** Allie · Pelvic Health OT · @floorplayunfiltered
+**Creator:** Ali · Pelvic Health OT · @floorplayunfiltered
 **Source:** iCloud shared album, `Teleprompter-2026-06-11_15-54-34.mp4` (1080×1920, 30 fps, 52.2 s)
 **Final cut:** `output/floorplay_painful_sex_reel.mp4`, 43.5 s, 1080×1920, 30 fps, H.264/AAC
 
@@ -47,7 +47,7 @@ Times are on the **edited** timeline.
 |---|---|---|---|---|---|
 | 1 | 0.0–4.1 | ![](storyboard/01_hook.jpg) | "Almost half of women who experience painful sex never tell their partner." | Hook card: *why* <mark>half</mark> *of women with painful sex* / **STAY SILENT** (on from frame 1) | Hook headline, captions |
 | 2 | 4.1–5.4 | ![](storyboard/02_sink_in.jpg) | "Let that sink in." | 1.28× punch-in, italic pop "let that sink in." | Punch-in, keyword pop |
-| 3 | 5.4–8.2 | ![](storyboard/03_intro.jpg) | "My name is Allie. I'm a pelvic health occupational therapist." | Name card slides in: PELVIC HEALTH rule, **ALLIE**, *occupational therapist* script, yellow @floorplayunfiltered pill | Lower-third, brand motif |
+| 3 | 5.4–8.2 | ![](storyboard/03_intro.jpg) | "My name is Ali. I'm a pelvic health occupational therapist." | Name card slides in: PELVIC HEALTH rule, **ALI**, *occupational therapist* script, yellow @floorplayunfiltered pill | Lower-third, brand motif |
 | 4 | 8.2–9.6 | ![](storyboard/04_get_into_it.jpg) | "Let's get into it." | Pop text "let's get <mark>into it</mark>" | Keyword pop |
 | 5 | 9.6–12.4 | ![](storyboard/05_study.jpg) | "A study in the Journal of Sexual Medicine found that…" | **Split screen opens**: cream card slides down, video moves under it. Label "A STUDY IN THE JOURNAL OF SEXUAL MEDICINE", title *The Journal of* **SEXUAL MEDICINE** | Green-screen layout |
 | 6 | 12.4–16.6 | ![](storyboard/06_51pct.jpg) | "…only 51% of women who experienced pain during sex told their partners." | **51%** counts up from 0, sub "of women with painful sex told their partner." | Animated stat |
