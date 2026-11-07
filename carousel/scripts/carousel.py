@@ -8,6 +8,7 @@ live-photo style ambient motion), in the Floorplay brand kit.
 
   python3 carousel.py --storyboard OUT_DIR   # key frames + contact sheet (no export)
   python3 carousel.py --export OUT_DIR       # PNG + MP4 per slide
+  python3 carousel.py --export OUT_DIR --stills-only   # PNG stills only
 """
 import argparse, math, os, random, subprocess
 import numpy as np
@@ -372,12 +373,14 @@ def storyboard(out):
         finals.paste(frames[2].resize((tw, th), Image.LANCZOS), (c * (tw + 10), 0))
     finals.save(os.path.join(out, "finals_strip.jpg"), quality=88)
 
-def export(out):
+def export(out, video=True):
     os.makedirs(out, exist_ok=True)
     for i, spec in enumerate(SLIDES):
         sl = Slide(i, spec)
         name = f"{i + 1:02d}_{spec['key']}"
         sl.frame(DUR - 0.01).save(os.path.join(out, name + ".png"))
+        if not video:
+            print("exported", name + ".png"); continue
         enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24",
                                 "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                                 "-c:v", "libx264", "-crf", "18", "-preset", "slow", "-pix_fmt", "yuv420p",
@@ -390,6 +393,7 @@ def export(out):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--storyboard"); ap.add_argument("--export")
+    ap.add_argument("--stills-only", action="store_true", help="export PNG stills, no MP4 loops")
     a = ap.parse_args()
     if a.storyboard: storyboard(a.storyboard)
-    if a.export: export(a.export)
+    if a.export: export(a.export, video=not a.stills_only)
